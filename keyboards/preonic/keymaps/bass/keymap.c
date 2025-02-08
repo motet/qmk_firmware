@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT_ortho_5x12(
 KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS, 
 KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,  KC_G,   KC_J,   KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_QUOT, 
-KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,  KC_D,   KC_H,   KC_N,  KC_E,    KC_I,    KC_O,    KC_DEL, 
+KC_DEL,  KC_A,    KC_R,    KC_S,    KC_T,  KC_D,   KC_H,   KC_N,  KC_E,    KC_I,    KC_O,    KC_BSPC, 
 KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, 
 BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_ENT, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
@@ -93,7 +93,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case BACKLIT:
           if (record->event.pressed) {
-            register_code(KC_RSFT);
+            register_code(KC_LSFT);
             #ifdef BACKLIGHT_ENABLE
               backlight_step();
             #endif
@@ -104,7 +104,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             gpio_write_pin_low(E6);
             #endif
           } else {
-            unregister_code(KC_RSFT);
+            unregister_code(KC_LSFT);
             #ifdef __AVR__
             gpio_write_pin_high(E6);
             #endif
