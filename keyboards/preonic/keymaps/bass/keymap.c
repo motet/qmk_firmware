@@ -21,16 +21,16 @@
 #endif
 
 enum preonic_layers {
-  _COLEMAK,
-  _LOWER,
-  _RAISE,
-  _ADJUST
+	_COLEMAK,
+	_LOWER,
+	_RAISE,
+	_ADJUST
 };
 
 enum preonic_keycodes {
-  LOWER = SAFE_RANGE,
-  RAISE,
-  ADJUST
+	LOWER = SAFE_RANGE,
+	RAISE,
+	ADJUST
 };
 
 #define COLEMAK PDF(_COLEMAK)
@@ -51,13 +51,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Caps | Ctrl | Alt  | GUI  | Lower| Space| Enter| Raise| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_COLEMAK] = LAYOUT_preonic_grid(
-KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS, 
-KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,  KC_G,   KC_J,   KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_QUOT, 
-KC_DEL,  KC_A,    KC_R,    KC_S,    KC_T,  KC_D,   KC_H,   KC_N,  KC_E,    KC_I,    KC_O,    KC_BSPC, 
-KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, 
-KC_CAPS, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_ENT, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
-),
+	[_COLEMAK] = LAYOUT_preonic_grid(
+	KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS, 
+	KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,  KC_G,   KC_J,   KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_QUOT, 
+	KC_DEL,  KC_A,    KC_R,    KC_S,    KC_T,  KC_D,   KC_H,   KC_N,  KC_E,    KC_I,    KC_O,    KC_BSPC, 
+	KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, 
+	KC_CAPS, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_ENT, RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -72,13 +72,13 @@ KC_CAPS, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_ENT, RAISE, KC_LEFT, KC_DO
  * |      |      |      |      |      |      |      |      | Prev | Vol- | Vol+ | Next |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_preonic_grid(
-KC_GRV,  KC_1,    KC_2,    KC_3,    _______, _______, _______, _______, _______, _______, _______, KC_EQL, 
-_______, KC_4,    KC_5,    KC_6,    _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, 
-_______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______, _______, _______, _______, _______, 
-_______, _______, KC_0,    KC_DOT,  _______, _______, _______, _______, _______, _______, KC_MPLY, _______, 
-_______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
-),
+	[_LOWER] = LAYOUT_preonic_grid(
+	KC_GRV,  KC_1,    KC_2,    KC_3,    _______, _______, _______, _______, _______, _______, _______, KC_EQL, 
+	_______, KC_4,    KC_5,    KC_6,    _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, 
+	_______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______, _______, _______, _______, _______, 
+	_______, _______, KC_0,    KC_DOT,  _______, _______, _______, _______, _______, _______, KC_MPLY, _______, 
+	_______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+	),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
@@ -93,14 +93,14 @@ _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV,
  * |      |      |      |      |      |      |      |      | Home | PgUp | PgDn | End  |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_preonic_grid(
-KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,         KC_F9,   KC_F10,  KC_PLUS, 
-_______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______,       KC_LCBR, KC_RCBR, KC_PIPE, 
-_______, _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, 
-_______, _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, 
-_______, _______, _______, _______, _______, _______, _______, _______, LGUI(KC_LEFT), KC_PGDN, KC_PGUP, RGUI(KC_RIGHT)
-),
-
+	[_RAISE] = LAYOUT_preonic_grid(
+	KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,         KC_F9,   KC_F10,  KC_PLUS, 
+	_______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______,       KC_LCBR, KC_RCBR, KC_PIPE, 
+	_______, _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, 
+	_______, _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, 
+	_______, _______, _______, _______, _______, _______, _______, _______, LGUI(KC_LEFT), KC_PGDN, KC_PGUP, RGUI(KC_RIGHT)
+	),
+	
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * | Reset| Debug|      |      |      |      |      |      |      |      |      | RGB  |
@@ -114,19 +114,20 @@ _______, _______, _______, _______, _______, _______, _______, _______, LGUI(KC_
  * |      |      |      |      |      |      |      |      | RGB- | Spd- | Spd+ | RGB+ |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_preonic_grid(
-QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______,  _______, _______, RGB_TOG, 
-_______, _______, _______, _______, _______, _______, _______, _______, _______,  RGB_VAD, RGB_VAI, _______, 
-_______, _______, MU_NEXT, AU_ON,   AU_OFF,  _______, _______, _______, _______,  RGB_SAD, RGB_SAI, _______, 
-_______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  RGB_HUD, RGB_HUI, _______, 
-_______, _______, _______, _______, _______, _______, _______, _______, RGB_RMOD, RGB_SPD, RGB_SPI, RGB_MOD
-)
+	[_ADJUST] = LAYOUT_preonic_grid(
+	QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______,  _______, _______, RGB_TOG, 
+	_______, _______, _______, _______, _______, _______, _______, _______, _______,  RGB_VAD, RGB_VAI, _______, 
+	_______, _______, MU_NEXT, AU_ON,   AU_OFF,  _______, _______, _______, _______,  RGB_SAD, RGB_SAI, _______, 
+	_______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  RGB_HUD, RGB_HUI, _______, 
+	_______, _______, _______, _______, _______, _______, _______, _______, RGB_RMOD, RGB_SPD, RGB_SPI, RGB_MOD
+	)
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+	return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+/*************************
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case LOWER:
@@ -236,3 +237,4 @@ bool music_mask_user(uint16_t keycode) {
       return true;
   }
 }
+**************************/
