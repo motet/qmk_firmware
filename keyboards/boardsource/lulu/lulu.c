@@ -39,6 +39,8 @@ bool oled_task_kb(void) {
         render_layer_state();
     } else {
         oled_write_raw_P(bs_logo_img, sizeof(bs_logo_img));
+//      oled_write_P(motet_logo, false);
+//		oled_write_raw_P(raw_logo, sizeof(raw_logo));
     }
     return false;
 }
