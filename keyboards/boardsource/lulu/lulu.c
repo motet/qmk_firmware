@@ -25,9 +25,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_180;
-    }
+//    if (!is_keyboard_master()) {
+//        return OLED_ROTATION_180;
+//    }
     return rotation;
 }
 
@@ -35,13 +35,34 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    if (is_keyboard_master()) {
-        render_layer_state();
-    } else {
-        oled_write_raw_P(bs_logo_img, sizeof(bs_logo_img));
-//      oled_write_P(motet_logo, false);
-//		oled_write_raw_P(raw_logo, sizeof(raw_logo));
+    
+//    if (is_keyboard_master()) {
+//        render_layer_state();
+//    } else {
+//        oled_write_raw_P(bs_logo_img, sizeof(bs_logo_img));
+//    }
+
+    return false;
+}
+
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    
+    for (int i = 0; i < 16; i++) {
+        oled_set_cursor(0, i);
+        
+        if (bootloader) {
+            oled_write_P(PSTR("Awaiting firmware update "), false);
+        } else {
+            oled_write_P(PSTR("Rebooting "), false);
+        }
     }
+
+    oled_render_dirty(true);
+}
+
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
     return false;
 }
 #endif

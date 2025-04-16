@@ -3,6 +3,9 @@
 
 #include QMK_KEYBOARD_H
 
+#pragma once
+#include "../../lib/oled.h"
+
 enum layers {
 	_COLEMAK,
 	_RAISE,
@@ -15,7 +18,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
-/* COLEMAK
+/* COLEMAK **************************************************************************************************
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -38,19 +41,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_LCTL,    KC_LALT, KC_LGUI, KC_SPC, KC_ENT, KC_RGUI, KC_LEFT, KC_RGHT
 ),
 
-
-
-
-
-
-/* LOWER
+/* LOWER ****************************************************************************************************
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  |   `  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |  F11 |  F12 |      |      |      |                    |      |      |      |   [  |   ]  |   ~  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------.    ,-------|      |      |      |   {  |   }  |   |  |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |------+------+------+------+------+------| Lower |    | Raise |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      |      |   =  |   +  |   \  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /       /       \      \  |      |      |      |
@@ -66,19 +64,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-
-
-
-
-
-/* RAISE
+/* RAISE ****************************************************************************************************
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | Mod+ | Hue+ | Sat+ | Bri+ | Spd+ |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Mod- | Hue- | Sat- | Bri- | Spd- |      |                    | PgDn |      |  Up  |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------.    ,-------| Home | Left |      |Right | End  |      |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |------+------+------+------+------+------| Lower |    | Raise |------+------+------+------+------+------|
  * |MTogg |      |      |      |      |      |-------|    |-------| PgDn |      | Down |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /       /       \      \  |      |      |      |
@@ -94,12 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX,       XXXXXXX, XXXXXXX
 ),
 
-
-
-
-
-
-/* ADJUST
+/* ADJUST ***************************************************************************************************
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |RESET |      |      |      |      |      |                    |      |      |      |      |      |RESET |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -122,11 +110,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
-
-
-
+/***********************************************************************************************************/
 layer_state_t layer_state_set_user(layer_state_t state) {
    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+void render_layer_status(void) {
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_raw_P(layer0_img, sizeof(layer0_img));
+            break;
+        case 1:
+            oled_write_raw_P(layer1_img, sizeof(layer1_img));
+            break;
+        case 2:
+            oled_write_raw_P(layer2_img, sizeof(layer2_img));
+            break;
+        case 3:
+            oled_write_raw_P(layer3_img, sizeof(layer3_img));
+            break;
+    }
 }
 
 
@@ -287,3 +290,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 //	return false;
 //}
 //
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+	if (!is_keyboard_master()) {
+		return OLED_ROTATION_270;
+	}
+	
+	return rotation;
+}
+
+bool oled_task_user(void) {
+    /* KEYBOARD PET VARIABLES START */
+    //current_wpm   = get_current_wpm();
+    //led_usb_state = host_keyboard_led_state();
+    /* KEYBOARD PET VARIABLES END */
+
+    if (is_keyboard_master()) {
+        render_layer_status();
+    } else {
+		oled_set_cursor(0,0);
+        oled_write_raw_P(logo_motet, sizeof(logo_motet));
+        oled_set_cursor(0,5);
+	    oled_write("Motet", false);
+	    oled_set_cursor(0,8);
+        oled_write_raw_P(logo_macos, sizeof(logo_macos));
+	    oled_set_cursor(0,12);
+        oled_write_raw_P(luna_img, sizeof(luna_img));
+    }
+    
+    return false;
+}
