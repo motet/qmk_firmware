@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 
 #pragma once
-#include "../../lib/oled.h"
+#include "oled.h"
 
 enum layers {
 	_COLEMAK,
@@ -114,24 +114,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-
-void render_layer_status(void) {
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_raw_P(layer0_img, sizeof(layer0_img));
-            break;
-        case 1:
-            oled_write_raw_P(layer1_img, sizeof(layer1_img));
-            break;
-        case 2:
-            oled_write_raw_P(layer2_img, sizeof(layer2_img));
-            break;
-        case 3:
-            oled_write_raw_P(layer3_img, sizeof(layer3_img));
-            break;
-    }
-}
-
 
 /* KEYBOARD PET START */
 ///* settings */
@@ -310,12 +292,33 @@ bool oled_task_user(void) {
 		oled_set_cursor(0,0);
         oled_write_raw_P(logo_motet, sizeof(logo_motet));
         oled_set_cursor(0,5);
-	    oled_write("Motet", false);
+	    oled_write("motet", false);
 	    oled_set_cursor(0,8);
         oled_write_raw_P(logo_macos, sizeof(logo_macos));
 	    oled_set_cursor(0,12);
-        oled_write_raw_P(luna_img, sizeof(luna_img));
+        oled_write_raw_P(img_luna_sit_2, sizeof(img_luna_sit_2));
     }
     
+    return false;
+}
+
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    
+    for (int i = 0; i < 16; i++) {
+        oled_set_cursor(0, i);
+        
+        if (bootloader) {
+            oled_write_P(PSTR("Updating firmware "), false);
+        } else {
+            oled_write_P(PSTR("Rebooting "), false);
+        }
+    }
+
+    oled_render_dirty(true);
+}
+
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
     return false;
 }
