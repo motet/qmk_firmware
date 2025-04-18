@@ -133,10 +133,22 @@ bool oled_task_user(void) {
     if (!is_keyboard_master()) {
 		oled_set_cursor(0,0);
         oled_write_raw_P(logo_motet, sizeof(logo_motet));
-        oled_set_cursor(0,5);
-	    oled_write("motet", false);
+	    
+	     /* wpm */
+		char wpm_str[4];
+		wpm_str[3] = '\0';
+		wpm_str[2] = '0' + current_wpm % 10;
+		wpm_str[1] = '0' + (current_wpm /= 10) % 10;
+		wpm_str[0] = '0' + current_wpm / 10;
+        oled_set_cursor(1,5);
+		oled_write(wpm_str, false);
+		oled_set_cursor(1,6);
+		oled_write("wpm", false);
+    
+    	/* macos or Windows */
 	    oled_set_cursor(0,8);
         oled_write_raw_P(logo_macos, sizeof(logo_macos));
+        
         render_luna(0,13);
     } else {
         render_layer_status();
