@@ -117,25 +117,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_270;		// both OLEDS
+	return OLED_ROTATION_270;		// both OLEDS portrait orientation
 }
 
 bool oled_task_user(void) {
 	// Update global variables then OLEDs
+	
 	current_wpm   = get_current_wpm();
     led_usb_state = host_keyboard_led_state();
 
+	#ifdef OLED_ENABLE
     if (is_keyboard_master()) {
 	    render_oled_master();
     } else {
         render_oled_slave();
     }
-        
+	#endif
+	   
     return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	// Update global variables if necessary
+	
+	#ifdef OLED_ENABLE	
 	switch (keycode) {
 		case KC_LCTL:
         case KC_RCTL:
@@ -154,6 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
+    #endif
     
     return true;
 }

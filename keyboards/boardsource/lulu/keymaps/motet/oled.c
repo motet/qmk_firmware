@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "oled.h"
 
+#ifdef OLED_ENABLE
+
 /* KEYBOARD PET START */
 /* settings */
 #define MIN_WALK_SPEED      10
@@ -269,3 +271,4 @@ bool shutdown_user(bool jump_to_bootloader) {
 	oled_render_boot(jump_to_bootloader);
 	return false;
 }
+#endif
