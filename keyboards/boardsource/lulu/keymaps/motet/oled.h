@@ -3,8 +3,8 @@
 #pragma once
 #include "quantum.h"
 
-void render_layer_status(void);
-void render_luna(int,int); 
+void render_oled_master(void);
+void render_oled_slave(void);
 
 extern int current_wpm;
 extern led_t led_usb_state;

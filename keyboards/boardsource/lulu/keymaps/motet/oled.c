@@ -2,23 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "oled.h"
 
-void render_layer_status(void) {
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_raw_P(layer0_img, sizeof(layer0_img));
-            break;
-        case 1:
-            oled_write_raw_P(layer1_img, sizeof(layer1_img));
-            break;
-        case 2:
-            oled_write_raw_P(layer2_img, sizeof(layer2_img));
-            break;
-        case 3:
-            oled_write_raw_P(layer3_img, sizeof(layer3_img));
-            break;
-    }
-}
-
 /* KEYBOARD PET START */
 /* settings */
 #define MIN_WALK_SPEED      10
@@ -33,7 +16,7 @@ uint32_t anim_timer = 0;
 uint8_t current_frame = 0;
 
 /* status variables */
-int   current_wpm = 0;
+int current_wpm = 0;
 led_t led_usb_state;
 
 bool isSneaking = false;
@@ -205,6 +188,67 @@ void render_luna(int LUNA_X, int LUNA_Y) {
 }
 /* KEYBOARD PET END */
 
+void render_oled_master(void) {
+/* macOS or Windows */
+	oled_set_cursor(0,0);
+	
+	if (keymap_config.swap_lctl_lgui) {
+		oled_write_raw_P(logo_windows, sizeof(logo_windows));
+	} else {
+		oled_write_raw_P(logo_macos, sizeof(logo_macos));
+	}   	
+
+ /* current layer */
+	oled_set_cursor(0,3);
+	oled_write("LAYER", false);
+	
+	oled_set_cursor(0,4);
+	
+	switch (get_highest_layer(layer_state)) {
+		case 0:
+			oled_write("Base ", false);
+			break;
+		case 1:
+			oled_write("Lower", false);
+			break;
+		case 2:
+			oled_write("Raise", false);
+			break;
+		case 3:
+			oled_write("Adjst", false);
+			break;
+		default:
+			oled_write("Undef", false);
+	}
+	
+	 /* wpm */
+	oled_set_cursor(0,6);
+	int wpm = get_current_wpm();	// do not use Luna's wpm set in oled_task_user
+	
+	char wpm_str[4];
+	wpm_str[3] = '\0';
+	wpm_str[2] = '0' + wpm % 10;
+	wpm_str[1] = '0' + (wpm /= 10) % 10;
+	wpm_str[0] = '0' + wpm / 10;
+	oled_set_cursor(1,6);
+	oled_write(wpm_str, false);
+	oled_set_cursor(1,7);
+	oled_write("wpm", false);
+
+	/* caps lock */
+	oled_set_cursor(0,9);
+	oled_write(led_usb_state.caps_lock ? "CPSLK" : "     ", false);
+	
+	render_luna(0,13);
+}
+
+void render_oled_slave(void) {
+	/* Motet logo */
+	oled_set_cursor(0,0);
+	oled_write_raw_P(logo_motet, sizeof(logo_motet));
+	
+}
+
 void oled_render_boot(bool bootloader) {
 	oled_clear();
 	
@@ -212,9 +256,9 @@ void oled_render_boot(bool bootloader) {
 		oled_set_cursor(0, i);
 		
 		if (bootloader) {
-			oled_write_P(PSTR("Updating firmware"), false);
+			oled_write_P(PSTR(" F/W "), false);
 		 } else {
-			oled_write_P(PSTR("Rebooting "), false);
+			oled_write_P(PSTR("Boot"), false);
 		}
 	}
 	
