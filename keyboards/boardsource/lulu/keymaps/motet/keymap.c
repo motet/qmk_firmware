@@ -1,16 +1,32 @@
-// Copyright 2022 Cole Smith <cole@boadsource.xyz>
-// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+ * Copyright 2025 Jo Yoshida <jo@motet.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include QMK_KEYBOARD_H
 
 #pragma once
 #include "oled.h"
+#include "luna.h"
+#include "ocean_dream.h"
 //#include "transactions.h"
 
 enum layers {
 	_COLEMAK,
-	_RAISE,
 	_LOWER,
+	_RAISE,
 	_ADJUST
 };
 
@@ -116,6 +132,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_270;		// both OLEDS portrait orientation
 }
@@ -136,6 +153,7 @@ bool oled_task_user(void) {
 	   
     return false;
 }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	// Update global variables if necessary
@@ -144,19 +162,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		case KC_LCTL:
         case KC_RCTL:
+        	#ifdef LUNA_ENABLE
             if (record->event.pressed) {
                 isSneaking = true;
             } else {
                 isSneaking = false;
             }
+            #endif
+            
+            #ifdef OCEAN_DREAM_ENABLE
+            is_calm = (record->event.pressed) ? true : false;
+			#endif
             break;
         case KC_SPC:
+           	#ifdef LUNA_ENABLE
             if (record->event.pressed) {
                 isJumping  = true;
                 showedJump = false;
             } else {
                 isJumping = false;
             }
+            #endif
             break;
     }
     #endif
