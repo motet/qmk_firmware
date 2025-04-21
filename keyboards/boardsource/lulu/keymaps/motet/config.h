@@ -12,14 +12,13 @@
 
 #define OLED_TIMEOUT 120000
 #define OLED_BRIGHTNESS 120
-//#define OLED_UPDATE_INTERVAL 10 	stops slave flicker but intermittent black out or no response on lower/raise
 
 #define SPLIT_WPM_ENABLE
 #define SPLIT_OLED_ENABLE
 #define SPLIT_MODS_ENABLE
+#define SPLIT_ACTIVITY_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
 #define EE_HANDS
-//#define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
