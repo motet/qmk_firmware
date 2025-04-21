@@ -40,19 +40,19 @@ void render_oled_master(void) {
 	
 	switch (get_highest_layer(layer_state)) {
 		case 0:
-			oled_write(" L0 ", false);
+			oled_write(" CLK ", false);
 			break;
 		case 1:
-			oled_write(" L1", false);
+			oled_write(" LOW ", false);
 			break;
 		case 2:
-			oled_write(" L2", false);
+			oled_write(" RAI ", false);
 			break;
 		case 3:
-			oled_write(" L3", false);
+			oled_write(" ADJ ", false);
 			break;
 		default:
-			oled_write(" L?", false);
+			oled_write(" ??? ", false);
 	}
 	
 	 /* wpm */

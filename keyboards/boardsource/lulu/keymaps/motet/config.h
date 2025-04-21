@@ -12,6 +12,7 @@
 
 #define OLED_TIMEOUT 120000
 #define OLED_BRIGHTNESS 120
+//#define OLED_UPDATE_INTERVAL 10 	stops slave flicker but intermittent black out or no response on lower/raise
 
 #define SPLIT_WPM_ENABLE
 #define SPLIT_OLED_ENABLE
