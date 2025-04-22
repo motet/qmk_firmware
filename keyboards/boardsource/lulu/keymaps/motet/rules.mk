@@ -1,9 +1,9 @@
 WPM_ENABLE = yes
-OLED_DRIVER_ENABLE = yes
 ENCODER_ENABLE = no
+OLED_DRIVER_ENABLE = yes
 
-OCEAN_DREAM_ENABLE = yes
 LUNA_ENABLE = yes
+OCEAN_DREAM_ENABLE = yes
 
 ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
 	SRC += oled.c

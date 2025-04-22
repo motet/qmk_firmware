@@ -76,9 +76,6 @@ void render_oled_master(void) {
 }
 
 void render_oled_slave(void) {
-//	/* Motet logo */
-//	oled_set_cursor(0,0);
-//	oled_write_raw_P(logo_motet, sizeof(logo_motet));
 	# ifdef OCEAN_DREAM_ENABLE
 	render_stars();
 	#endif	
