@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| Lower |    | Raise |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |  Up  | Down | LGUI | /Space  /       \Enter \  | RALT | Left |Right |
+ *                   | Down |  Up  | LGUI | /Space  /       \Enter \  | RALT | Left |Right |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -55,30 +55,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_G,                    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_QUOT,
   KC_LCTL,  KC_A,   KC_R,    KC_S,    KC_T,    KC_D,                    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_BSPC,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    LOWER,   RAISE, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                            KC_UP,    KC_DOWN, KC_LGUI, KC_SPC, KC_ENT, KC_RALT, KC_LEFT, KC_RGHT
+                             KC_DOWN, KC_UP,   KC_LGUI, KC_SPC, KC_ENT, KC_RALT, KC_LEFT, KC_RGHT
 ),
 
 /* LOWER ****************************************************************************************************
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |   ~  |      |      |      |
+ * |      |      |      |      |      |      |                    |      |      |      |   +  |   ~  |   =  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |   `  |   [  |   ]  |      |
+ * |      |      |      |      |      |      |                    |      |      |      |   [  |   ]  |   `  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      |      |   +  |   {  |   }  |      |
+ * |      |      |      |      |      |      |-------.    ,-------|      |      |      |   {  |   }  |      |
  * |------+------+------+------+------+------| Lower |    | Raise |------+------+------+------+------+------|
- * |CapsLk|      |      |      |      |      |-------|    |-------|      |      |   =  |   |  |   \  |      |
+ * |CapsLk|      |      |      |      |      |-------|    |-------|      |      |      |   |  |   \  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | PgUp | PgDn |      | /       /       \      \  |      |      |      |
+ *                   | PgDn | PgUp |      | /       /       \      \  |      |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
  
 [_LOWER] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_TILD, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_GRV,  KC_LBRC, KC_RBRC, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_PPLS, KC_LCBR, KC_RCBR, XXXXXXX,
-  KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, KC_PEQL, KC_PIPE, KC_BSLS, XXXXXXX,
-                             KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_TILD, KC_PEQL,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_GRV,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX,
+  KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_BSLS, XXXXXXX,
+                             KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* RAISE ****************************************************************************************************
