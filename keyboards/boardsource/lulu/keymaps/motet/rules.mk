@@ -22,13 +22,13 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
 
 	ifdef LUNA_ENABLE
 		ifeq ($(strip $(LUNA_ENABLE)), yes)
-			SRC += luna.c
+			SRC += luna_right.c
 			OPT_DEFS += -DLUNA_ENABLE
 		endif
 	endif
 	
 	ifndef LUNA_ENABLE
-		SRC += luna.c
+		SRC += luna_right.c
 		OPT_DEFS += -DLUNA_ENABLE
 	endif
 endif
